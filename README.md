@@ -1,4 +1,4 @@
-# Polygonization algorithms for the ISPRS PIA 2019 Munich conference
+# Polygonization algorithm for the ISPRS PIA 2019 Munich conference
 This page is devoted to the polygonization method, written for our work \[2\] presented at the **ISPRS PIA+MRSS 2019 conference** (Munich, Germany), originally based on the work of Dutter \[1\]. 
 
 It is aimed for the polygonization of building footprints. It yields very accurate polygonal outlines, without requiring any supervision or manual editting from human operators. However, they are only designed for buildings with perpendicular corners.
