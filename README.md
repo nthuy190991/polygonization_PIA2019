@@ -41,7 +41,7 @@ These two parameters are in **meter** units (not in pixel).
 
 ## Examples
 
-A raw boundary is given in blue, with its MBR in black-dashed. At each level, the boundary is divided into smaller segments, color-coded for visual purposes. In the Result figures, the resulting polygons are plotted in red outlines.
+A raw boundary is given in blue, with its MBR in black-dashed. At each level, the boundary is divided into smaller segments, color-coded for visual purposes. In the Result figures, the resulting polygons are plotted in red outlines. You may click on the figures for the full size.
 
 ### A rectangle boundary
 Raw boundary | Level 1 segmentation | Result |
