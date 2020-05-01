@@ -96,9 +96,10 @@ Level 2 segmentation | **Level 3 segmentation** | **Result** |
 ## Reference
 \[1\] Dutter, M. (2007). "Generalization of building footprints derived from high resolution remote sensing data", Institut für Photogrammetrie und Fernerkundung, Technische Universität Wien.
 
-\[2\] T. H. Nguyen et al. (2019). "Unsupervised Automatic Building Extraction Using Active Contour Model on Unregistered Optical Imagery and Airborne LiDAR Data," Int. Arch. Photogramm. Remote Sens. Spatial Inf. Sci., XLII-2/W16, 181-188. DOI: 10.5194/isprs-archives-XLII-2-W16-181-2019.
+\[2\] T. H. Nguyen et al. (2019). "Unsupervised Automatic Building Extraction Using Active Contour Model on Unregistered Optical Imagery and Airborne LiDAR Data," International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences, XLII-2/W16, 181-188. DOI: 10.5194/isprs-archives-XLII-2-W16-181-2019.
 
-\[3\] 
+\[3\] Douglas, D. H., Peucker, T. K. (1973). "Algorithms for the reduction of the number of points required to represent a digitized line or its caricature". Cartographica: The International Journal for Geographic Information and Geovisualization, 10(2), 112– 122.
+
 
 ## Questions/Discussions
 For any other questions/issues, please open an issue on the Issues tracker.
