@@ -30,7 +30,7 @@ If you use these codes, cite the paper \[[link](https://www.int-arch-photogramm-
 
 ## Some examples
 
-A raw boundary is given. At each level, the boundary are divided into smaller segments, color-coded for visual purposes. In the Result figures, the resulting polygons are in red outlines.
+A raw boundary is given in blue, with its MBR in black-dashed. At each level, the boundary is divided into smaller segments, color-coded for visual purposes. In the Result figures, the resulting polygons are plotted in red outlines.
 
 ### A rectangle boundary
 Raw boundary | Level 1 segmentation | Result |
