@@ -58,6 +58,15 @@ function [vertices,points,S,Psub]= polygonization_dutter(P,GP,Vspec,Mspec,nb_pts
 % BEGIN OF MAIN PROGRAM %
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
+%% Some other parameters 
+tol_range=2; % tolerance range to look for sb and sf, in level 2.
+             % Dutter proposed tol_range=2 meters.
+             
+Uref=0.05; %0.11; % Reference value used in level 3 (Dutter proposed Uref=0.11)
+           % A U(i)<Uref means that the data is of poor quality
+           % or the geometry at the segment is too complex.
+           % I think it is okay without Uref or a smaller value (e.g. 0.05).
+            
 %% Determine of the Minimum Bounding Rectangle (MBR)
 % Original algo.: use the MBR of the input points
 % Improved algo.: use the MBR of the projected LiDAR points (more reliable)
@@ -208,59 +217,60 @@ while ~stop_flag
             
             % Determine (sb, sm, sf) for each segment having dist_si_ti>Mspec
             for j=1:length(idx)
-                
-                % Backward split-point (sb) - See Equation (3.4) page 55
-                if idx(j)==1
-                    B=[4 1];
-                else
-                    B=[idx(j)-1 idx(j)]; % B is used to get the BACKWARD edge index
-                end
-                
-                if idx(j)==4
-                    F=[4 1];
-                else
-                    F=[idx(j) idx(j)+1]; % F is used to get the FORWARD edge index
-                end
-                
-                % For example, if the split-point s(2) is to be divided,
-                % Backward: refer to edge (1,2) (i.e. edge between split-points 1 and 2)
-                % Forward:  refer to edge (2,3) (i.e. edge between split-points 2 and 3)
-                
-                % Calculate distance from points in the level1-segment to the backward edge
-                d_backward=zeros(1,length(Psub{B(1)}));
-                for i=1:length(Psub{B(1)})
-                    d_backward(i)=dist_to_line(Psub{B(1)}(i,:),[M(:,B(1)) M(:,B(2))]);
-                end
-                idx_sb=max(find(d_backward<2)); % the constant 2 meters chosen by Dutter
-                sb(j,:)=Psub{B(1)}(idx_sb,:);
-                
-                % Forward split-point (sf) - See Equation (3.4) page 55
-                d_forward=zeros(1,length(Psub{F(1)}));
-                for i=1:length(Psub{F(1)})
-                    d_forward(i)=dist_to_line(Psub{F(1)}(i,:),[M(:,F(1)) M(:,F(2))]);
-                end
-                idx_sf=min(find(d_forward<2)); % the constant 2 meters chosen by Dutter
-                sf(j,:)=Psub{F(1)}(idx_sf,:);
-                
-                % Rotate sb and sf with origin of t(i) with the positive x-axis
-                % going through t(i-1) and positive y-axis through t(i+1)
-                if idx(j)==1
-                    h(j,:)=parallel_intersection(sf(j,:)',[M(:,4) M(:,idx(j))],...
-                        sb(j,:)',[M(:,idx(j)) M(:,idx(j)+1)],0);
-                else
-                    h(j,:)=parallel_intersection(sf(j,:)',[M(:,idx(j)-1) M(:,idx(j))],...
-                        sb(j,:)',[M(:,idx(j)) M(:,idx(j)+1)],0);
-                end
-                
-                % Middle split-point (sm) - Equation (3.6) page 54
-                Ptmp=[Psub{B(1)}; Psub{idx(j)}];
-                d_middle=zeros(1,size(Ptmp,1));
-                for i=1:size(Ptmp,1)
-                    d_middle(i)=dist(h(j,:),Ptmp(i,:));
-                end
-                [~,idx_mid]=min(d_middle);
-                sm(j,:)=Ptmp(idx_mid,:);
-            end
+                if length(Psub{idx(j)})>3
+                    % Backward split-point (sb) - See Equation (3.4) page 55
+                    if idx(j)==1
+                        B=[length(S) 1];
+                    else
+                        B=[idx(j)-1 idx(j)]; % B is used to get the BACKWARD edge index
+                    end
+
+                    if idx(j)==length(S)
+                        F=[length(S) 1];
+                    else
+                        F=[idx(j) idx(j)+1]; % F is used to get the FORWARD edge index
+                    end
+
+                    % For example, if the split-point s(2) is to be divided,
+                    % Backward: refer to edge (1,2) (i.e. edge between split-points 1 and 2)
+                    % Forward:  refer to edge (2,3) (i.e. edge between split-points 2 and 3)
+
+                    % Calculate distance from points in the level1-segment to the backward edge
+                    d_backward=zeros(1,length(Psub{B(1)}));
+                    for i=1:length(Psub{B(1)})
+                        d_backward(i)=dist_to_line(Psub{B(1)}(i,:),[M(:,B(1)) M(:,B(2))]);
+                    end
+                    idx_sb=max(find(d_backward<tol_range)); 
+                    sb(j,:)=Psub{B(1)}(idx_sb,:);
+
+                    % Forward split-point (sf) - See Equation (3.4) page 55
+                    d_forward=zeros(1,length(Psub{F(1)}));
+                    for i=1:length(Psub{F(1)})
+                        d_forward(i)=dist_to_line(Psub{F(1)}(i,:),[M(:,F(1)) M(:,F(2))]);
+                    end
+                    idx_sf=min(find(d_forward<tol_range)); 
+                    sf(j,:)=Psub{F(1)}(idx_sf,:);
+
+                    % Rotate sb and sf with origin of t(i) with the positive x-axis
+                    % going through t(i-1) and positive y-axis through t(i+1)
+                    if idx(j)==1
+                        h(j,:)=parallel_intersection(sf(j,:)',[M(:,length(S)) M(:,idx(j))],...
+                            sb(j,:)',[M(:,idx(j)) M(:,idx(j)+1)],0);
+                    else
+                        h(j,:)=parallel_intersection(sf(j,:)',[M(:,idx(j)-1) M(:,idx(j))],...
+                            sb(j,:)',[M(:,idx(j)) M(:,idx(j)+1)],0);
+                    end
+
+                    % Middle split-point (sm) - Equation (3.6) page 54
+                    Ptmp=[Psub{B(1)}; Psub{idx(j)}];
+                    d_middle=zeros(1,size(Ptmp,1));
+                    for i=1:size(Ptmp,1)
+                        d_middle(i)=dist(h(j,:),Ptmp(i,:));
+                    end
+                    [~,idx_mid]=min(d_middle);
+                    sm(j,:)=Ptmp(idx_mid,:);
+                end % end of if on line 220
+            end % end of for-loop on line 219
             
             % if verbose
             %     % display(sb)
@@ -282,14 +292,21 @@ while ~stop_flag
             % S2: split-point index (at level 2)
             S2=[];
             for j=1:length(idx)
-                idx_sb=find(P(:,1)==sb(j,1) & P(:,2)==sb(j,2));
-                idx_sf=find(P(:,1)==sf(j,1) & P(:,2)==sf(j,2));
-                idx_sm=find(P(:,1)==sm(j,1) & P(:,2)==sm(j,2));
-                
+                if all(sb(j,:)~=[0 0])
+                    idx_sb=find(P(:,1)==sb(j,1) & P(:,2)==sb(j,2));
+                    idx_sf=find(P(:,1)==sf(j,1) & P(:,2)==sf(j,2));
+                    idx_sm=find(P(:,1)==sm(j,1) & P(:,2)==sm(j,2));
+                else
+                    idx_sb=[]; idx_sf=[]; idx_sm=[];
+                end
                 % set of split-points
                 S2b=S(1:idx(j)-1);
                 S2f=S(idx(j)+1:end);
-                S2=[S2; S2b; idx_sb; idx_sm; idx_sf; S2f];
+                if isempty(idx_sb) %&& isempty(idx_sf) && isempty(idx_sm)
+                    S2=[S2; S2b; S(idx(j)); S2f];
+                else
+                    S2=[S2; S2b; idx_sb; idx_sm; idx_sf; S2f];
+                end
             end
             S2=unique(S2);
             
@@ -323,7 +340,7 @@ while ~stop_flag
                 plot(P(:,1), P(:,2), 'b.')
                 hold on, grid on, axis equal
                 plot([mbr(1,1:4) mbr(1,1)],[mbr(2,1:4) mbr(2,1)],'k--')
-                %             cl=rand(length(S2)+1,3);
+                % cl=rand(length(S2)+1,3);
                 cl=rand(length(S2)+1,3);
                 for i=1:length(S2)
                     % text(P(S2(i),1), P(S2(i),2), ['s_{' num2str(i) '}']) % split-points
@@ -360,13 +377,13 @@ while ~stop_flag
                 %     display(M2)
                 % end
             end
-        end %end of if ~isempty(idx) /line88
+        end %end of if ~isempty(idx) on line 203
         
         if verbose
             disp('Level2: DONE')
             disp(['Level3=', num2str(Level3)])
         end
-    end
+    end %end of if Level2 on line 193
     
     %% Level 3: U-shape (cf. page 55)
     if Level3
@@ -387,14 +404,14 @@ while ~stop_flag
         si2=zeros(length(idx2),2);
         si3=zeros(length(idx2),2);
         si4=zeros(length(idx2),2);
-        si5=zeros(length(idx2),2); % I use si5 for the s(i+1)
+        si_plus1=zeros(length(idx2),2); % s(i+1)
         
         h1=zeros(length(idx2),2); % h1 is used to determine si1
         h4=zeros(length(idx2),2); % h4 is used to determine si4
         for i=1:length(idx2)
             p=Psub{idx2(i)};
             si(i,:)=p(1,:);
-            si5(i,:)=p(end,:);
+            si_plus1(i,:)=p(end,:);
         end
         
         for i=1:length(idx2)
@@ -422,25 +439,20 @@ while ~stop_flag
             end
             
             % Histogram of D(i) in 6 bin, in the order of ascending d
-            [N,hist_edges] = histcounts(D,6);
+            [N,hist_edges] = histcounts(real(D),6);
             % if there are too few D for 6 bins, compute only 4 bins
             if N(end)<2
-                [N,hist_edges] = histcounts(D,4);
+                [N,hist_edges] = histcounts(real(D),4);
             end
             
             % if verbose
             %     figure
-            %     subplot(121), plot(D), title('Distances D(i)')
-            %     subplot(122), hist(D,4), title('Histogram of D(i) in 6 bins')
+            %     subplot(121), plot(real(D)), title('Distances D(i)')
+            %     subplot(122), hist(real(D),4), title('Histogram of D(i) in 6 bins')
             % end
             
             % only consider the last bin C6 which contains the largest values
             U=N(end)/n;
-            
-            Uref=0; %0.11; % Reference value (Dutter prefers an Uref of 0.11)
-            % An U(i) smaller value than Uref means that the data is of poor quality
-            % or the geometry is too complex for this method.
-            % I think it is okay without Uref.
             
             if U<Uref % Ineligible for an U-shape
                 
@@ -476,9 +488,11 @@ while ~stop_flag
                 
                 % Find si4, page 59
                 if k>1
-                    h4(i,:)=parallel_intersection(si3(i,:)',[M2(:,k-1) M2(:,k)],si5(i,:)',[M2(:,k) M2(:,k+1)],0);
+                    h4(i,:)=parallel_intersection(si3(i,:)',[M2(:,k-1) M2(:,k)],...
+                                                  si_plus1(i,:)',[M2(:,k) M2(:,k+1)],0);
                 else
-                    h4(i,:)=parallel_intersection(si3(i,:)',[M2(:,k+1) M2(:,k+2)],si5(i,:)',[M2(:,k) M2(:,k+1)],0);
+                    h4(i,:)=parallel_intersection(si3(i,:)',[M2(:,k+1) M2(:,k+2)],...
+                                                  si_plus1(i,:)',[M2(:,k) M2(:,k+1)],0);
                 end
                 d_i4=zeros(1,n);
                 for j=1:size(p,1)
@@ -491,7 +505,7 @@ while ~stop_flag
             % plot(si2(i,1),si2(i,2),'b*')
             % plot(si3(i,1),si3(i,2),'k*')
             % plot(si4(i,1),si4(i,2),'g*')
-        end
+        end % end of for-loop on line 417
         
         % Add new split-points into S3
         % S3: split-point index (at level 3)
@@ -505,15 +519,12 @@ while ~stop_flag
                 idx_si3=find(P(:,1)==si3(j,1) & P(:,2)==si3(j,2));
                 idx_si4=find(P(:,1)==si4(j,1) & P(:,2)==si4(j,2));
             else % case U<Uref
-                idx_si1=[];
-                idx_si2=[];
-                idx_si3=[];
-                idx_si4=[];
+                idx_si1=[]; idx_si2=[]; idx_si3=[]; idx_si4=[];
             end
             % set of split-points
             S3b=S(1:idx2(j)-1);
             S3f=S(idx2(j)+1:end);
-            S3=[S3; S3b; idx_si; sort([idx_si1, idx_si2, idx_si3, idx_si4])'; S3f];
+            S3=[S3; S3b; sort([idx_si, idx_si1, idx_si2, idx_si3, idx_si4])'; S3f];
         end
         S3=unique(S3);
         
@@ -555,7 +566,7 @@ while ~stop_flag
             end
             title('Level 3 result')
         end
-    end
+    end %end of if Level3 on line 389
     
     
     %% Saving results
@@ -614,9 +625,21 @@ while ~stop_flag
     for i=1:length(S)
         % display([edges{i,1} edges{i,2}])
         if i<length(S)
-            vertices(:,i)=line_intersect([edges{i,1} edges{i,2}],[edges{i+1,1} edges{i+1,2}]);
-        else
-            vertices(:,i)=line_intersect([edges{i,1} edges{i,2}],[edges{1,1} edges{1,2}]);
+            [intersect,parallel]=line_intersect([edges{i,1} edges{i,2}],[edges{i+1,1} edges{i+1,2}],0);
+            if ~parallel % if two edges are not parallel, get the intersection
+                vertices(:,i)=intersect;
+            else % if two edges are parallel, use the last point in the segment
+                p=Psub{i};
+                vertices(:,i)=p(end,:);
+            end
+        else % i=length(S)
+            [intersect,parallel]=line_intersect([edges{i,1} edges{i,2}],[edges{1,1} edges{1,2}],0);
+            if ~parallel
+                vertices(:,i)=intersect;
+            else
+                p=Psub{i};
+                vertices(:,i)=p(end,:);
+            end
         end
     end
     vertices=[vertices(:,end) vertices];
@@ -742,16 +765,40 @@ end
 
 %% Intersection of two lines l1 and l2
 % l1=[xA,xB;yA,yB] and l2=[xC,xD;yC,yD] are given by their end-points
-function m=line_intersect(l1,l2)
-% linear polynomial fitting
-p1 = polyfit([l1(1,1) l1(1,2)],[l1(2,1) l1(2,2)],1);
-p2 = polyfit([l2(1,1) l2(1,2)],[l2(2,1) l2(2,2)],1);
+function [m,bool]=line_intersect(l1,l2,verbose)
 
-% calculate intersection
-x_intersect = fzero(@(x) polyval(p1-p2,x),1);
-y_intersect = polyval(p1,x_intersect);
+bool=checkParallel(l1,l2);
+if ~bool
+    % linear polynomial fitting
+    p1 = polyfit([l1(1,1) l1(1,2)],[l1(2,1) l1(2,2)],1);
+    p2 = polyfit([l2(1,1) l2(1,2)],[l2(2,1) l2(2,2)],1);
 
-m=[x_intersect y_intersect]';
+    % calculate intersection
+    x_intersect = fzero(@(x) polyval(p1-p2,x),1);
+    y_intersect = polyval(p1,x_intersect);
+
+    m=[x_intersect y_intersect]';
+else
+    disp('Two lines are nearly parallel. Cannot find their intersection.')
+%     m=[mean([l1(1,1),l1(1,2),l2(1,1),l2(1,2)]) mean([l1(2,1),l1(2,2),l2(2,1),l2(2,2)])];
+    m=[0 0]'; %l1(:,1);
+end
+if verbose
+    plot([l1(1,1) l1(1,2)],[l1(2,1) l1(2,2)],'r')
+    plot([l2(1,1) l2(1,2)],[l2(2,1) l2(2,2)],'b')
+    plot(m(1),m(2),'g*')
+end
+end
+
+%% Check parallelism
+function bool=checkParallel(l1,l2)
+angle1=atand((l1(2,1)-l1(2,2))/(l1(1,1)-l1(1,2)));
+angle2=atand((l2(2,1)-l2(2,2))/(l2(1,1)-l2(1,2)));
+if abs(angle1-angle2)<5
+    bool=1;
+else
+    bool=0;
+end
 end
 
 %% Intersection between two lines (m1,//l1) and (m2,//l2)
@@ -759,7 +806,7 @@ end
 % m1 and parallel to l1 (denoted //l1) and the line through m2 and //l2.
 % In this algorithm, l1 and l2 should be perpendicular.
 function h=parallel_intersection(m1,l1,m2,l2,verbose)
-m=line_intersect(l1,l2);
+[m,~]=line_intersect(l1,l2,0);
 
 angle=atan((l1(2,1)-l1(2,2))/(l1(1,1)-l1(1,2)));  % atan((yA-yB)/(xA-xB))
 
