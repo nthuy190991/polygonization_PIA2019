@@ -5,7 +5,7 @@ It is aimed for the polygonization of building footprints. It yields very accura
 
 The contribution \[2\] (in which this polygonization participating) is awarded the Best Poster Award at the conference. You may find the poster [here](https://www.dropbox.com/s/l8xr08ksu2io0ho/poster.pdf?dl=0).
 
-The two algorithms operate on 3 levels of shapes:
+The algorithm operates on 3 levels of shapes:
 - Level 1: rectangle; 
 - Level 2: L-, T- or Z-shape; 
 - Level 3: U-shape. 
