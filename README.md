@@ -1,5 +1,5 @@
 # Polygonization algorithms for the ISPRS PIA 2019 Munich conference
-This page is devoted to the polygonization method, written for our work \[2\] presented at the ISPRS PIA+MRSS 2019 conference, (Munich, Germany), originally based on the work of Dutter \[1\]. 
+This page is devoted to the polygonization method, written for our work \[2\] presented at the **ISPRS PIA+MRSS 2019 conference**, (Munich, Germany), originally based on the work of Dutter \[1\]. 
 
 It is aimed for the polygonization of building footprints. It yields very accurate polygonal outlines, without requiring any supervision or manual editting from human operators. However, they are only designed for buildings with perpendicular corners.
 
@@ -32,6 +32,12 @@ If you use these codes, cite the paper \[[link](https://www.int-arch-photogramm-
 The algorithm is included in the main script named **polygonization_dutter.m**. 
 To perform a test run, run the script **test.m**.
 Three examples are provided in folder **example**. They are real building boundaries.
+
+### Parameters
+Two threshold parameters are required:
+- Vspec: standard deviation of distances between the points in a segment and its corresponding edge.
+- Mspec: minimum length of resulting edges.
+These two parameters are in **meter** units (not in pixel).
 
 ## Examples
 
