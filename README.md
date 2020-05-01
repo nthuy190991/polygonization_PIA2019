@@ -66,9 +66,9 @@ Level 1 segmentation | Level 2 segmentation | Result |
 
 ### A U-shape boundary
 Vspec=2, Mspec=4 
-Raw boundary | Level 1 segmentation | |
+Raw boundary | Douglas-Peucker algorithm \[3\] | Level 1 segmentation |
 :-------------------------:|:-------------------------:|:-------------------------:|
-<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/Ushape.png" alt="Raw boundary" width="100%" height="25%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/l1_Ushape_V2_M2.png" alt="Level 1" width="100%" height="25%"/>|
+<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/Ushape.png" alt="Raw boundary" width="100%" height="25%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/DP_Ushape_tol2.png" alt="DP" width="100%" height="25%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/l1_Ushape_V2_M2.png" alt="Level 1" width="100%" height="25%"/>
 Level 2 segmentation | **Level 3 segmentation** | **Result** |
 <img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/l2_Ushape_V2_M4.png" alt="Level 2" width="100%" height="25%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/l3_Ushape_V2_M4.png" alt="Level 3" width="100%" height="25%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/res_Ushape_V2_M4.png" alt="Result" width="100%" height="25%"/>
 
@@ -96,7 +96,9 @@ Level 2 segmentation | **Level 3 segmentation** | **Result** |
 ## Reference
 \[1\] Dutter, M. (2007). "Generalization of building footprints derived from high resolution remote sensing data", Institut für Photogrammetrie und Fernerkundung, Technische Universität Wien.
 
-\[2\] T. H. Nguyen et al. (2019). "Unsupervised Automatic Building Extraction Using Active Contour Model on Unregistered Optical Imagery and Airborne LiDAR Data," Int. Arch. Photogramm. Remote Sens. Spatial Inf. Sci., XLII-2/W16, 181-188. DOI: 10.5194/isprs-archives-XLII-2-W16-181-2019 
+\[2\] T. H. Nguyen et al. (2019). "Unsupervised Automatic Building Extraction Using Active Contour Model on Unregistered Optical Imagery and Airborne LiDAR Data," Int. Arch. Photogramm. Remote Sens. Spatial Inf. Sci., XLII-2/W16, 181-188. DOI: 10.5194/isprs-archives-XLII-2-W16-181-2019.
+
+\[3\] 
 
 ## Questions/Discussions
 For any other questions/issues, please open an issue on the Issues tracker.
