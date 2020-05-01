@@ -82,6 +82,7 @@ Level 2 segmentation | **Level 3 segmentation** | **Result** |
 
 ### Some error notes
 The code may crash if the inputs Vspec or Mspec too small (e.g. <0.75). In such cases, the algorithm cannot resolve the perpendicular property of the polygon, or it is because there are too few points in some splitted segment(s).
+Therefore, my advice is to begin with big Vspec and Mspec, and gradually reduce them.
 
 ## Reference
 \[1\] Dutter, M. (2007). "Generalization of building footprints derived from high resolution remote sensing data", Institut für Photogrammetrie und Fernerkundung, Technische Universität Wien.
