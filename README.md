@@ -1,7 +1,9 @@
 # Polygonization algorithm for the ISPRS PIA 2019 Munich conference
 This page is devoted to the polygonization method, written for our work \[2\] presented at the **ISPRS PIA+MRSS 2019 conference** (Munich, Germany), originally based on the work of Dutter \[1\]. 
 
-It is aimed for the polygonization of building footprints. This algorithm yields very accurate polygonal outlines, without requiring any supervision or manual editting from human operators. However, they are only designed for buildings with perpendicular corners.
+It is aimed for the polygonization of building footprints. This algorithm works well on relatively complex boundaries,
+yielding very accurate polygonal outlines, without requiring any supervision or manual editting from human operators.
+However, they are only designed for buildings with perpendicular corners.
 
 The research work \[2\] presents an unsupervised building extraction method, wrapped up by this polygonization step.
 It was awarded the Best Poster Award at the PIA 2019 conference. You may find the paper [here](https://www.int-arch-photogramm-remote-sens-spatial-inf-sci.net/XLII-2-W16/181/2019/isprs-archives-XLII-2-W16-181-2019.pdf).
