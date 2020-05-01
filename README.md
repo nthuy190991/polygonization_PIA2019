@@ -81,7 +81,7 @@ Level 2 segmentation | **Level 3 segmentation** | **Result** |
 <img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/l2_Ushape_V2_M2.png" alt="Level 2" width="100%" height="25%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/l3_Ushape_V07_M2_new.png" alt="Level 3" width="100%" height="25%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/res_Ushape_V07_M2_new.png" alt="Result" width="100%" height="25%"/>
 
 ### Some error notes
-The code may crash if the inputs Vspec or Mspec too small (e.g. <1). In such cases, the algorithm cannot resolve the perpendicular property of the polygon, or it is because there are too few points in some splitted segment(s).
+The code may crash if the inputs Vspec or Mspec too small (e.g. <0.75). In such cases, the algorithm cannot resolve the perpendicular property of the polygon, or it is because there are too few points in some splitted segment(s).
 
 ## Reference
 \[1\] Dutter, M. (2007). "Generalization of building footprints derived from high resolution remote sensing data", Institut für Photogrammetrie und Fernerkundung, Technische Universität Wien.
