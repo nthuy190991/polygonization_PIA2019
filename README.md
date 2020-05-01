@@ -10,7 +10,7 @@ The two algorithms operate on 3 levels of shapes:
 - Level 2: L-, T- or Z-shape; 
 - Level 3: U-shape. 
 
-In this script, we used the algorithm to detect the Minimum Bounding Rectangular (MBR) written by Julien Diener from Matlab Exchange [link](https://www.mathworks.com/matlabcentral/fileexchange/31126-2d-minimal-bounding-box).
+In this script, we used the algorithm to detect the Minimum Bounding Rectangular (MBR) written by Julien Diener contributing in Matlab Exchange \[[link](https://www.mathworks.com/matlabcentral/fileexchange/31126-2d-minimal-bounding-box)\].
 
 Author: [Thanh Huy Nguyen](mailto:nthuy190991@gmail.com).
 
