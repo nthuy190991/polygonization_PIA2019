@@ -48,19 +48,19 @@ A raw boundary is given in blue, with its MBR in black-dashed. At each level, th
 ### A rectangle boundary
 Raw boundary | Level 1 segmentation | Result |
 :-------------------------:|:-------------------------:|:-------------------------:|
-<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/rect.png" alt="Raw boundary" width="100%" height="25%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/l1_rect_V1_M1.png" alt="Level 1" width="90%" height="20%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/res_rect_V1_M1.png" alt="Result" width="90%" height="20%">
+<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/rect.png" alt="Raw boundary" width="90%" height="22%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/l1_rect_V1_M1.png" alt="Level 1" width="90%" height="22%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/res_rect_V1_M1.png" alt="Result" width="90%" height="22%">
 
 ### An L-shape boundary
 
 Vspec=2, Mspec=2 
 Raw boundary | Level 1 segmentation | Result |
 :-------------------------:|:-------------------------:|:-------------------------:|
-<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/Lshape.png" alt="Raw boundary" width="90%" height="20%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/l1_Lshape_V2_M2.png" alt="Level 1" width="90%" height="20%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/res_Lshape_V2_M2.png" alt="Result" width="90%" height="20%"/>
+<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/Lshape.png" alt="Raw boundary" width="90%" height="22%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/l1_Lshape_V2_M2.png" alt="Level 1" width="90%" height="22%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/res_Lshape_V2_M2.png" alt="Result" width="90%" height="22%"/>
 
 **Vspec=1**, Mspec=2
 Level 1 segmentation | Level 2 segmentation | Result |
 :-------------------------:|:-------------------------:|:-------------------------:|
-<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/l1_Lshape_V2_M2.png" alt="Level 1" width="90%" height="20%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/l2_Lshape_V1_M1.png" alt="Level 2" width="90%" height="20%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/res_Lshape_V1_M1.png" alt="Result" width="90%" height="20%"/>
+<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/l1_Lshape_V2_M2.png" alt="Level 1" width="90%" height="22%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/l2_Lshape_V1_M1.png" alt="Level 2" width="90%" height="22%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/res_Lshape_V1_M1.png" alt="Result" width="90%" height="22%"/>
 
 ### A U-shape boundary
 Vspec=2, Mspec=4 
