@@ -87,7 +87,7 @@ Level 2 segmentation | **Level 3 segmentation** | **Result** |
 
 ### Some notes
 - If you put too small Vspec or Mspec value, there may be too few points (e.g. <3) in some splitted segment(s). This can make the polygon become incorrect due to the orthogonality between adjacent polygonal segments. Therefore, my advice is to begin with big Vspec and Mspec value, and then gradually reduce them.
-- Despite the "surmise" that Z-shape boundaries are included in level 2, we found that they are more stricky to process than the other shapes.
+- Despite the "surmise" that Z-shape boundaries are included in level 2, we found that they were very tricky to process, compared to the other shapes. Zigzag boundaries are even trickier. I may try to solve this later.
 
 
 ## Reference
