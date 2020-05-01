@@ -3,7 +3,7 @@ This page is devoted to the polygonization method, written for our work \[2\] pr
 
 It is aimed for the polygonization of building footprints. This algorithm yields very accurate polygonal outlines, without requiring any supervision or manual editting from human operators. However, they are only designed for buildings with perpendicular corners.
 
-The research work \[2\] presents a building extraction method, wrapped up by this polygonization step.
+The research work \[2\] presents an unsupervised building extraction method, wrapped up by this polygonization step.
 It was awarded the Best Poster Award at the PIA 2019 conference. You may find the poster [here](https://www.dropbox.com/s/l8xr08ksu2io0ho/poster.pdf?dl=0).
 
 The algorithm operates on 3 levels of shapes:
