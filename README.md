@@ -69,7 +69,7 @@ Vspec=2, Mspec=4
 Raw boundary | Douglas-Peucker algorithm \[3\] | Level 1 segmentation |
 :-------------------------:|:-------------------------:|:-------------------------:|
 <img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/Ushape.png" alt="Raw boundary" width="100%" height="25%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/DP_Ushape_tol2.png" alt="DP" width="100%" height="25%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/l1_Ushape_V2_M2.png" alt="Level 1" width="100%" height="25%"/>
-Level 2 segmentation | **Level 3 segmentation** | **Result** |
+**Level 2 segmentation** | **Level 3 segmentation** | **Result** |
 <img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/l2_Ushape_V2_M4.png" alt="Level 2" width="100%" height="25%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/l3_Ushape_V2_M4.png" alt="Level 3" width="100%" height="25%"/>|<img src="https://github.com/nthuy190991/polygonization_PIA2019/blob/master/figure/res_Ushape_V2_M4.png" alt="Result" width="100%" height="25%"/>
 
 Vspec=2, **Mspec=2**
