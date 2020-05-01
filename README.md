@@ -28,7 +28,12 @@ If you use these codes, cite the paper \[[link](https://www.int-arch-photogramm-
 }
 ```
 
-## Some examples
+## Code organization
+The algorithm is included in the main script named **polygonization_dutter.m**. 
+To perform a test run, run the script **test.m**.
+Three examples are provided in folder **example**. They are real building boundaries.
+
+## Examples
 
 A raw boundary is given in blue, with its MBR in black-dashed. At each level, the boundary is divided into smaller segments, color-coded for visual purposes. In the Result figures, the resulting polygons are plotted in red outlines.
 
